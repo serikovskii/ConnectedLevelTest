@@ -1,0 +1,6 @@
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.Models\bin\Debug\ConnectedLevelTest.Models.dll
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.Models\bin\Debug\ConnectedLevelTest.Models.pdb
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.Models\obj\Debug\ConnectedLevelTest.Models.csprojAssemblyReference.cache
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.Models\obj\Debug\ConnectedLevelTest.Models.csproj.CoreCompileInputs.cache
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.Models\obj\Debug\ConnectedLevelTest.Models.dll
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.Models\obj\Debug\ConnectedLevelTest.Models.pdb

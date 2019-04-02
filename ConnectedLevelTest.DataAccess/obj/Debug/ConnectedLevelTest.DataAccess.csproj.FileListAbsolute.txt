@@ -1,0 +1,11 @@
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\bin\Debug\Database.mdf
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\bin\Debug\Database_log.ldf
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\bin\Debug\ConnectedLevelTest.DataAccess.dll
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\bin\Debug\ConnectedLevelTest.DataAccess.pdb
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\bin\Debug\ConnectedLevelTest.Models.dll
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\bin\Debug\ConnectedLevelTest.Models.pdb
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\obj\Debug\ConnectedLevelTest.DataAccess.csprojAssemblyReference.cache
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\obj\Debug\ConnectedLevelTest.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\obj\Debug\ConnectedLevelTest.DataAccess.csproj.CopyComplete
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\obj\Debug\ConnectedLevelTest.DataAccess.dll
+C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\obj\Debug\ConnectedLevelTest.DataAccess.pdb
