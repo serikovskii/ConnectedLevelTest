@@ -63,22 +63,43 @@ namespace ConnectedLevelTest.DataAccess
             using (var connection = new SqlConnection(_connectionString))
             using (var command = connection.CreateCommand())
             {
+                SqlTransaction transaction = null;
                 try
                 {
                     connection.Open();
-                    command.CommandText = $"insert into Users values ('{user.Login}', '{user.Password}' )";
+                    transaction = connection.BeginTransaction();
+                    command.Transaction = transaction;
+                    command.CommandText = $"insert into Users values (@login, @password)";
+
+                    SqlParameter loginParameter = new SqlParameter();
+                    loginParameter.ParameterName = "@login";
+                    loginParameter.SqlDbType = System.Data.SqlDbType.NVarChar;
+                    loginParameter.SqlValue = user.Login;
+
+                    SqlParameter passwordParameter = new SqlParameter
+                    {
+                        ParameterName = "@password",
+                        SqlDbType = System.Data.SqlDbType.NVarChar,
+                        SqlValue = user.Password
+                    };
+
+                    command.Parameters.AddRange(new SqlParameter[] { loginParameter, passwordParameter });
 
                     var affectedRows = command.ExecuteNonQuery();
 
                     if (affectedRows < 1) throw new Exception("Вставка не удалась");
+
+                    transaction.Commit();
                 }
                 catch (SqlException exeptions)
                 {
+                    transaction?.Rollback();
                     // TODO obrabotka
                     throw;
                 }
                 catch (Exception exeptions)
                 {
+                    transaction?.Rollback();
                     // TODO obrabotka
                     throw;
                 }
@@ -97,5 +118,7 @@ namespace ConnectedLevelTest.DataAccess
 
 
         }
+
+       
     }
 }
