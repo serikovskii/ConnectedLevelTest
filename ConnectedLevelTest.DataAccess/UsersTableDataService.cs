@@ -1,29 +1,37 @@
 ﻿using ConnectedLevelTest.Models;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using System.Data.Common;
 
 namespace ConnectedLevelTest.DataAccess
 {
     public class UsersTableDataService
     {
         private readonly string _connectionString;
+        private readonly string _ownerName;
+        private readonly DbProviderFactory _providerFactory;
 
         public UsersTableDataService()
         {
-            _connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\МукушевА.CORP\source\repos\ConnectedLevelTest\ConnectedLevelTest.DataAccess\Database.mdf;Integrated Security=True";
+            _connectionString = ConfigurationManager.ConnectionStrings["mainAppCollectionString"].ConnectionString;
+            _ownerName = ConfigurationManager.AppSettings["ownerNane"];
+            _providerFactory = DbProviderFactories.GetFactory(ConfigurationManager
+                .ConnectionStrings["mainAppCollectionString"]
+                .ProviderName); 
         }
         public List<User> GetAll()
         {
             var data = new List<User>();
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = _providerFactory.CreateConnection())
             using (var command = connection.CreateCommand())
             {
                 try
                 {
+                    connection.ConnectionString = _connectionString;
                     connection.Open();
                     command.CommandText = "select * from Users";
 
@@ -43,7 +51,7 @@ namespace ConnectedLevelTest.DataAccess
                     }
                     dataReader.Close();
                 }
-                catch (SqlException exeptions)
+                catch (DbException exeptions)
                 {
                     // TODO obrabotka
                     throw;
@@ -60,38 +68,38 @@ namespace ConnectedLevelTest.DataAccess
         }
         public void Add(User user)
         {
-            using (var connection = new SqlConnection(_connectionString))
+            using (var connection = _providerFactory.CreateConnection())
             using (var command = connection.CreateCommand())
             {
-                SqlTransaction transaction = null;
+                DbTransaction transaction = null;
                 try
                 {
+                    connection.ConnectionString = _connectionString;
                     connection.Open();
                     transaction = connection.BeginTransaction();
                     command.Transaction = transaction;
                     command.CommandText = $"insert into Users values (@login, @password)";
 
-                    SqlParameter loginParameter = new SqlParameter();
+                    DbParameter loginParameter = command.CreateParameter();
                     loginParameter.ParameterName = "@login";
-                    loginParameter.SqlDbType = System.Data.SqlDbType.NVarChar;
-                    loginParameter.SqlValue = user.Login;
+                    loginParameter.DbType = System.Data.DbType.String;
+                    loginParameter.Value = user.Login;
 
-                    SqlParameter passwordParameter = new SqlParameter
-                    {
-                        ParameterName = "@password",
-                        SqlDbType = System.Data.SqlDbType.NVarChar,
-                        SqlValue = user.Password
-                    };
+                    DbParameter passwordParameter = command.CreateParameter();
+                    loginParameter.ParameterName = "@password";
+                    loginParameter.DbType = System.Data.DbType.String;
+                    loginParameter.Value = user.Password;
 
-                    command.Parameters.AddRange(new SqlParameter[] { loginParameter, passwordParameter });
+                    command.Parameters.AddRange(new DbParameter[] { loginParameter, passwordParameter });
 
                     var affectedRows = command.ExecuteNonQuery();
 
                     if (affectedRows < 1) throw new Exception("Вставка не удалась");
 
                     transaction.Commit();
+                    transaction.Dispose();
                 }
-                catch (SqlException exeptions)
+                catch (DbException exeptions)
                 {
                     transaction?.Rollback();
                     // TODO obrabotka
@@ -100,8 +108,13 @@ namespace ConnectedLevelTest.DataAccess
                 catch (Exception exeptions)
                 {
                     transaction?.Rollback();
+
                     // TODO obrabotka
                     throw;
+                }
+                finally
+                {
+                    transaction?.Dispose();
                 }
 
             }
